@@ -1,5 +1,7 @@
 """
-Module responsible for translating mongoDB operations to SQL equivalent
+Module responsible for translating mongoDB operations to SQL equivalent.
+Operations stored in a dict for easily extending to new ops in the future
+if desired.
 """
 
 logical_ops = {

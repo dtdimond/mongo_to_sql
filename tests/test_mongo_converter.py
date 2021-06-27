@@ -4,6 +4,7 @@ import pytest
 
 @pytest.fixture()
 def user():
+    # avoid repeating this line for each test
     yield MongoConverter("user")
 
 

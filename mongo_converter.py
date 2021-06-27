@@ -64,7 +64,9 @@ def build_where_clause(field: str, val: any, operator=None):
     """
     This is the main logic of the parser and it works by recursively parsing
     the key/value pairs if there are nested layers (e.g. the value is itself
-    a dict). There are a few scenarios:
+    a dict). The recursive approach leads to fairly readable code and
+    mimics how you would do the conversion by hand in my opinion.
+    There are a few scenarios:
     1) field is a 'logical'
         ex: {'$and': [...]} -> field = $and
         convert_logical() deals with this scenario, recursively if needed
@@ -97,13 +99,20 @@ def build_where_clause(field: str, val: any, operator=None):
         raise ValueError(f"Bad input for {field}: {val}")
 
 
-def convert_logical(field: str, val: list) -> str:
+def convert_logical(logical_op: str, val: list) -> str:
+    """
+    Handles converting a logical operation to SQL, also leveraging
+    a recursive approach if needed.
+    :param logical_op: The logical operator. e.g. "$and"
+    :param val: list of sub-clauses to join together
+    :return: SQL representation
+    """
     sub_clauses = []
     for query in val:
         for nested_field, nested_val in query.items():
             sub_clauses.append(build_where_clause(nested_field, nested_val))
 
-    return f"({logical_ops[field].join(sub_clauses)})"
+    return f"({logical_ops[logical_op].join(sub_clauses)})"
 
 
 if __name__ == "__main__":
