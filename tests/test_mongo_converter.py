@@ -26,6 +26,10 @@ class TestMongoConverter:
         sql = user.find({"_id": 23113}, {"name": 1, "age": 1})
         assert sql == "SELECT name, age FROM user WHERE _id = 23113;"
 
+    def test_projection_exclusion_fails(self, user):
+        with pytest.raises(ValueError):
+            user.find({"_id": 23113}, {"name": 0, "age": 1})
+
     def test_gte(self, user):
         sql = user.find({"age": {"$gte": 21}}, {"name": 1, "_id": 1})
         assert sql == "SELECT name, _id FROM user WHERE age >= 21;"

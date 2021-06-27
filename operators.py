@@ -47,6 +47,8 @@ def not_in_op(field: str, vals: list) -> str:
 
 
 def _in_op(field: str, vals: list, do_in: bool) -> str:
+    # Custom translation for $in or $ni
+
     if not isinstance(vals, list):
         raise ValueError(f"$in operator expects a list, got {vals} instead.")
 

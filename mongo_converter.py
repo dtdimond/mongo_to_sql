@@ -40,8 +40,9 @@ class MongoConverter:
         selects = []
         if projection is not None:
             for select, enabled in projection.items():
-                if enabled:
-                    selects.append(select)
+                if not enabled:
+                    raise ValueError(f"Exclusion not supported: {projection}")
+                selects.append(select)
         select_stmt = "*" if not selects else ", ".join(selects)
         return select_stmt
 
