@@ -75,6 +75,16 @@ class TestMongoConverter:
             "AND (location IN ('US', 'AUS') OR _id NOT IN (1, 2)));"
         )
 
+    def test_bad_input(self, user):
+        with pytest.raises(ValueError):
+            user.find({"_id": {"user": [1, 2]}})
+
+    def test_bad_nested_and(self, user):
+        # This SQL is nonsensical: "WHERE b (age >= 21 AND age <= 30)"
+        with pytest.raises(ValueError):
+            query = {"b": {"$and": [{"age": {"$gte": 21, "$lte": 30}}]}}
+            user.find(query)
+
     def test_sql_injection_attack(self, user):
         # Note - we don't handle this attack as you can see,
         #   but I wanted to highlight that with a test
