@@ -106,3 +106,6 @@ def convert_logical(field: str, val: list) -> str:
     return f"({logical_ops[field].join(sub_clauses)})"
 
 
+if __name__ == "__main__":
+    users = MongoConverter("users")
+    print(users.find({"name": "julio"}))
