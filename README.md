@@ -18,6 +18,7 @@ The MongoConverter class exposes the find(query, projection) function for conver
 * Setup/activate venv virtual environment
 * pip install -r requirements.txt
 * pytest .
+* ./mongo_convert.py
 
 ## Authors
 
