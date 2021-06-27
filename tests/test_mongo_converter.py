@@ -1,4 +1,4 @@
-from mongo_converter import MongoConverter
+from converter.mongo_converter import MongoConverter
 import pytest
 
 

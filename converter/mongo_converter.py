@@ -1,4 +1,4 @@
-from operators import logical_ops, convert_operation
+from converter.operators import logical_ops, convert_operation
 
 
 class MongoConverter:
