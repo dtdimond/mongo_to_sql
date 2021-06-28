@@ -117,5 +117,9 @@ def convert_logical(logical_op: str, val: list) -> str:
 
 
 if __name__ == "__main__":
-    users = MongoConverter("users")
-    print(users.find({"name": "julio"}))
+    from converter.parser import parse_mongo
+
+    mongo = "db.users.find({name: 'julio'})"
+    collection, query, projection = parse_mongo(mongo)
+    users = MongoConverter(collection)
+    print(users.find(query, projection))
