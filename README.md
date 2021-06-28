@@ -29,6 +29,10 @@ mongo = "db.users.find({name: 'julio'})"
 collection, query, projection = parse_mongo(mongo)
 users = MongoConverter(collection)
 print(users.find(query, projection))
+
+
+# -> "SELECT * FROM users WHERE name = 'julio';"
+
 ```
 
 ## Authors
