@@ -20,6 +20,17 @@ The MongoConverter class exposes the find(query, projection) function for conver
 * pytest .
 * ./mongo_convert.py
 
+
+```
+from converter.mongo_converter import MongoConverter
+from converter.parser import parse_mongo
+
+mongo = "db.users.find({name: 'julio'})"
+collection, query, projection = parse_mongo(mongo)
+users = MongoConverter(collection)
+print(users.find(query, projection))
+```
+
 ## Authors
 
 Dan Dimond
